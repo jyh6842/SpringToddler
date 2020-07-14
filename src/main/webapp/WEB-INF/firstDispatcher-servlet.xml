@@ -13,12 +13,20 @@
 			   name - 1. 단독선언시 id 속성과 동일한 의미가 부여 => 구분을 위해 선언된 구분자(유니크) 이런 말임
 			   		  2. id 속성과 동반 선언되면 해당 id의 별명으로 활용
 			   class - 해당 자원이 배치된 패키지명과 자원명
+			   scope - default
+			   			설정 파일 내 선언된 빈의 인스턴스는 싱글톤 패턴을 적용해 관리되고 제공.
+		
+		어노테이션 : @Controller - 커맨드 컨트롤러 자격 부여 조건.
+				 @RequestMappgin - 클라이언트 요청시 서블릿 패스와 해당 요청을 처리하는 메서드(컨트롤러 메서드)와의 맵핑 조건
+				 	   
 	 -->
-	 <bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	 	<property name="prefix" value="/WEB-INF/views/user/"></property>
-	 	<property name="suffix" value=".jsp"></property>
-	 </bean>
+<!-- 	 <bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 	 	<property name="prefix" value="/WEB-INF/views/user/"></property> -->
+<!-- 	 	<property name="suffix" value=".jsp"></property> -->
+<!-- 	 </bean> -->
 	 
 	 
 	<bean id="firstController" class="kr.or.ddit.first.controller.FirstController"></bean>
+	
+<!-- 	<bean id="memberInfo" name="m1 m2 m3" class="kr.or.ddit.vo.MemberVO"></bean> -->
 </beans>

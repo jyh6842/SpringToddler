@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	
-	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	 	<property name="prefix" value="/WEB-INF/views/user/"></property>
-	 	<property name="suffix" value=".jsp"></property>
-	 </bean>
+<!-- 	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 	 	<property name="prefix" value="/WEB-INF/views/user/"></property> -->
+<!-- 	 	<property name="suffix" value=".jsp"></property> -->
+<!-- 	 </bean> -->
 	
 	<bean id="secondController" class="kr.or.ddit.second.controller.SecondController"></bean>
 
