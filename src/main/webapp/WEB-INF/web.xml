@@ -16,13 +16,13 @@
 							   시점은 서버 실행시 ServletContext 생성 직후 
 							  WebApplicationContext와 동반 인스턴스화 됨
 											|
-					=====================================================
-					|													|
-				서블릿 컨텍스트(firstDispatcher)						서블릿 컨텍스트(secondDispatcher)
-					WebApplicationContext 할당					WebApplicationContext 할당
-					설정 파일 : firstDispatcher-servlet.xml			설정 파일 : secondDispatcher-servlet.xml
-					* 클라리언트 요청시에 설정파일 내 선언된 빈의				* 클라리언트 요청시에 설정파일 내 선언된 빈의
-					  인스턴스화가 진행됨.								  인스턴스화가 진행됨.
+					==============================================================================================
+					|													|										 |
+				서블릿 컨텍스트(firstDispatcher)						서블릿 컨텍스트(secondDispatcher)					서블릿 컨텍스트
+					WebApplicationContext 할당					WebApplicationContext 할당						WebApplicationContext 할당
+					설정 파일 : firstDispatcher-servlet.xml			설정 파일 : secondDispatcher-servlet.xml			설정파일 : servlet-*.xml
+					* 클라리언트 요청시에 설정파일 내 선언된 빈의				* 클라리언트 요청시에 설정파일 내 선언된 빈의					* 클라이언트 요청시 설정파일 내 성언된 빈의
+					  인스턴스화가 진행됨.								  인스턴스화가 진행됨.										인스턴스화가 진행됨.
 	 -->
 	<!-- 상수 선언 -->
 	<context-param>
@@ -67,6 +67,37 @@
 	 	<servlet-name>secondDispatcher</servlet-name>
 	 	<url-pattern>*.second</url-pattern>
 	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>doDispatcher</servlet-name>
+	 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	 	<init-param>
+	 		<param-name>contextConfigLocation</param-name>
+	 		<param-value>/WEB-INF/spring/config/servlet-*.xml</param-value>
+	 	</init-param>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>doDispatcher</servlet-name>
+	 	<url-pattern>*.do</url-pattern>
+	 </servlet-mapping>
+	 
+	 <!-- 
+	 		forceEncoding : true - 클라이언트가 서버대상 요청시 HttpServletRequest.getCharacterEncoding() 취득시 다른 인코딩 타입으로 선언되어 있더라도 해당 취득 인코딩 타입을 적용
+	 							       클라이언트가 서버대상 요청시 HttpServletRequest.getCharacterEncoding() 미취득시 선언된 인코딩 타입이 적용
+	 						false - 클라이언트가 서버대상 요청시 HttpServletReuquest.getCharacterEncoding()취득시에도 선언된 인코딩 타입이 강제 적용
+	  -->
+	 <filter>
+	 	<filter-name>encodingFilter</filter-name>
+	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 	<init-param>
+	 		<param-name>encoding</param-name>
+	 		<param-value>UTF-8</param-value>
+	 	</init-param>
+	 	<init-param>
+	 		<param-name>forceEncoding</param-name>
+	 		<param-value>true</param-value>
+	 	</init-param>
+	 </filter>
 	 
 
 </web-app>
