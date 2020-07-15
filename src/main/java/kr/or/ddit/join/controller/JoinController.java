@@ -60,4 +60,10 @@ public class JoinController {
 			return "forward:/user/member/memberList.do";
 		}
 	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/user/join/loginForm.do";
+	}
 }

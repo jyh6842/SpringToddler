@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // /SpringToddler/user/member/memberList.do
 // /SpringToddler/user/member/memberView.do
@@ -58,4 +60,22 @@ public class MemberController {
 		
 		return modelMap;
 	}
+	
+	@RequestMapping("updateMemberInfo")
+	private String updateMember(MemberVO memberInfo // private로 되도 요청은 되지만 public 써야 됨. 왜? 그런 이유가 일단 있다는데
+								){
+		this.service.updateMemberInfo(memberInfo);
+		return "redirect:/user/member/memberList.do";
+	}
+	
+	// /user/member/deleteMemberInfo.do?user_id=a001
+	@RequestMapping("deleteMemberInfo")
+	public String deleteMember(@RequestParam(required=false, defaultValue="널 대체값" ) String mem_id // @RequestParam(value="user_id") String mem_id
+							   ,Map<String, String> params){
+		params.put("mem_id", mem_id);
+		this.service.deleteMemberInfo(params);
+		return "redirect:/user/member/memberList.do";
+	}
+	
+	
 }

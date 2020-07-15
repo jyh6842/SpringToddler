@@ -27,6 +27,13 @@
                            HTTPSession - DI
                            MAP - DI => BindingAwaureModelMap으로 리턴되지만 Map을 implement 받기 때문에 Map처럼 사용할수있다.
                            Model - DI
+                           
+        					@RequestParam - value = 클라이언트 요청시 쿼리스트링의 키와 주입 대상 파라미터명이 상이할때 활용
+        									required = 필수 주입
+        												default true - 주입이 불가능한 경우 에러
+        												false - 주입 값이 존재하지 않아도 에러 미발생
+        														주입값 존재시 주입 처리
+        												defaultValue - 주입값이 존재하지 않을때 파라미터 대상 널 대체 주입값 설정
 
 	
 		bean : id - 다른 빈과 구분을 위해 선언된 구분자(유니크) 같은 아이디가 또 선언되면 안됨
