@@ -25,6 +25,15 @@ public class MemberVO {
 	String mem_mileage;
 	String mem_delete;
 	
+	
+	
+	public MemberVO(String mem_id, String mem_pass, String mem_name) {
+		this.mem_id = mem_id;
+		this.mem_pass = mem_pass;
+		this.mem_name = mem_name;
+		
+		System.out.println(this.mem_id + " | " + this.mem_pass + " | " + this.mem_name);
+	}
 	public String getMem_id() {
 		return mem_id;
 	}

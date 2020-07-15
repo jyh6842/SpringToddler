@@ -16,8 +16,8 @@
 							   시점은 서버 실행시 ServletContext 생성 직후 
 							  WebApplicationContext와 동반 인스턴스화 됨
 											|
-					===================================================
-					|
+					=====================================================
+					|													|
 				서블릿 컨텍스트(firstDispatcher)						서블릿 컨텍스트(secondDispatcher)
 					WebApplicationContext 할당					WebApplicationContext 할당
 					설정 파일 : firstDispatcher-servlet.xml			설정 파일 : secondDispatcher-servlet.xml

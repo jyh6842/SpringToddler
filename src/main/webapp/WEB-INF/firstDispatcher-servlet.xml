@@ -4,6 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 	<!-- 
+		스프링 프레임웤 IoC(Inversion of Control : 역제어)
+			1. 스프링 프레임웤이 관리하는 빈들의 인스턴스화 및 제공처 대상
+				인스턴스를 제공하기 위한 스프링 프레임웤의 핵심 기능
+			2. 구분
+				DL(Dependency Lookup) : 설정 파일 내 선언된 빈이 해당 위치에 해당 이름으로 존재 여부를 검증
+				DI(Dependency Injection(주입, 제공)) : 설정파일 내 선언된 빈의 인스턴스를 제공처에 제공 
+	
 		커맨드 컨트롤러 : 클라이언트의 요청을 실제 처리하는 자원
 				   자격 조건 - 설정파일 내 빈 등록 완료 되어 있어야 한다.
 				   		 해당 자원(커맨드 컨트롤러 클래스) 클래스 선언 상단부에 @Controller 선언 완료.
@@ -15,9 +22,16 @@
 			   class - 해당 자원이 배치된 패키지명과 자원명
 			   scope - default
 			   			설정 파일 내 선언된 빈의 인스턴스는 싱글톤 패턴을 적용해 관리되고 제공.
+			   constructor-arg : 해당 빈의 생성자 대상 주입값을 선언할 때 사용
+			   					 주입 순서 = default 선언 순서
+			   					 		 name 속성을 활용해 특정 생성자의 특정 파라메터 선언명 맵핑 가능
+			   					 		 index 속성을 활용한 생성자에 선언된 파라메터 선언 순서 맵핑 가능
+			   					 		 ref(reference) 속성을 활용해 성정파일 내 선언된 다른 빈(id 속성값 또는 name 속성값)의 인스턴스를 주입
+			   					 네임스페이스 c로 활용 가능 
+			   	property - 해당 빈 전역변수의 setter를 대상으로 주입값 선언
 		
 		어노테이션 : @Controller - 커맨드 컨트롤러 자격 부여 조건.
-				 @RequestMappgin - 클라이언트 요청시 서블릿 패스와 해당 요청을 처리하는 메서드(컨트롤러 메서드)와의 맵핑 조건
+				 @RequestMapping - 클라이언트 요청시 서블릿 패스와 해당 요청을 처리하는 메서드(컨트롤러 메서드)와의 맵핑 조건
 				 	   
 	 -->
 <!-- 	 <bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
