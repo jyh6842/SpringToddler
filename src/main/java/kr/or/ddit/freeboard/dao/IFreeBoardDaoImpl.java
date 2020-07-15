@@ -3,36 +3,38 @@ package kr.or.ddit.freeboard.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.ibatis.factory.SqlMapClientFactory;
-import kr.or.ddit.vo.FreeBoardVO;
+import kr.or.ddit.vo.FreeboardVO;
 
+@Repository("freeboardDAO")
 public class IFreeBoardDaoImpl implements IFreeBoardDao{
-
-	private static IFreeBoardDao dao;
+	
+	@Autowired
 	private SqlMapClient client;
 	
 	private IFreeBoardDaoImpl() {
 		client = SqlMapClientFactory.getSqlMapClient();
 	}
 	
-	public static IFreeBoardDao getInstance() {
-		return dao == null ? dao = new IFreeBoardDaoImpl() : dao;
-	}
+
 	
 	@Override
-	public List<FreeBoardVO> freeboardList(Map<String, String> params) throws Exception {
+	public List<FreeboardVO> freeboardList(Map<String, String> params) throws Exception {
 		return client.queryForList("freeboard.freeboardList", params);
 	}
 
 	@Override
-	public String insertFreeboard(FreeBoardVO freeboardInfo) throws Exception {
+	public String insertFreeboard(FreeboardVO freeboardInfo) throws Exception {
 		return (String) client.insert("freeboard.insertFreeboard", freeboardInfo);
 	}
 	
 	@Override
-	public String insertFreeboardReply(FreeBoardVO freeboardInfo) throws Exception {
+	public String insertFreeboardReply(FreeboardVO freeboardInfo) throws Exception {
 		// freeboardInfo : 댓글 정보(bo_title, bo_nickname, bo_pwd, bo_mail, bo_content, bo_writer, bo_ip)
 		//                 부모게시글 정보(bo_group, bo_seq, bo_depth)
 		String bo_no = "";
@@ -63,9 +65,9 @@ public class IFreeBoardDaoImpl implements IFreeBoardDao{
 	}
 
 	@Override
-	public FreeBoardVO freeboardInfo(Map<String, String> params)
+	public FreeboardVO freeboardInfo(Map<String, String> params)
 			throws Exception {
-		return (FreeBoardVO) client.queryForObject("freeboard.freeboardInfo", params);
+		return (FreeboardVO) client.queryForObject("freeboard.freeboardInfo", params);
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class IFreeBoardDaoImpl implements IFreeBoardDao{
 	}
 
 	@Override
-	public void updateFreeboard(FreeBoardVO freeboardInfo) throws Exception {
+	public void updateFreeboard(FreeboardVO freeboardInfo) throws Exception {
 		client.update("freeboard.updateFreeboard", freeboardInfo);
 	}
 

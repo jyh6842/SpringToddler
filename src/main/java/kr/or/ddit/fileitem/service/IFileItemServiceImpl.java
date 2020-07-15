@@ -3,22 +3,22 @@ package kr.or.ddit.fileitem.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import kr.or.ddit.fileitem.dao.IFileItemDao;
 import kr.or.ddit.fileitem.dao.IFileItemDaoImpl;
 import kr.or.ddit.vo.FileItemVO;
 
+@Service
 public class IFileItemServiceImpl implements IFileItemService{
 	
-	private static IFileItemService service;
+//	@Qualifier 타입이 중복되면 이거 사용
+	@Autowired
 	private IFileItemDao dao;
 	
-	private IFileItemServiceImpl() {
-		dao = IFileItemDaoImpl.getInstance();
-	}
-	
-	public static IFileItemService getInstance() {
-		return service == null ? service = new IFileItemServiceImpl() : service;
-	}
+
 
 	@Override
 	public void insertFileItem(List<FileItemVO> fileitemList) {
