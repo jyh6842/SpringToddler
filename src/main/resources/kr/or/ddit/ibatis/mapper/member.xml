@@ -53,10 +53,10 @@
 		<!--  		AND MEM_REGNO1 < '990101' -->
 		<!-- 		]]>  -->
 				<include refid="searchCondition"/>)A)B
-	<![CDATA[				 	
-	WHERE B.RNUM <= #startCount#
-		AND B.RNUM >= #endCount#
-	]]>
+<!-- 	<![CDATA[				 	 -->
+<!-- 	WHERE B.RNUM <= #startCount# -->
+<!-- 		AND B.RNUM >= #endCount# -->
+<!-- 	]]> -->
 	ORDER BY B.RNUM DESC					
 	</select>
 	
