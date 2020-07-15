@@ -10,51 +10,34 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin.css" type="text/css">
 <title>회원관리 관리자 로그인</title>
 <script type='text/javascript' src = 'http://code.jquery.com/jquery-latest.js'></script>
-<script type='text/javascript' src = '${pageContext.request.contextPath }/js/common/validation.js'></script>
-<script type='text/javascript' src = '${pageContext.request.contextPath }/js/common/cookieControl.js'></script>
+
 <script type="text/javascript">
 	window.onload = function(){
 		
-			if(${!empty param.message}){
+			if(eval('${!empty param.message}')){
 				alert('${param.message}');
 			}
 			
-			if(Get_Cookie("mem_id")){
-				$('input[name=saveID]').attr('checked', true);
-				$('input[name=mem_id]').val(Get_Cookie("mem_id"));
-// 				Delete_Cookie("mem_id", '/');
-			}
-		document.querySelector(".loginBtn").addEventListener('click', function(){
-			var mem_id = $('input[name=mem_id]').val();
-			if(!mem_id.validationID()){
-				alert('아이디를 바르게 입력해주세요.');
-				return false;
-				}
-			var mem_pass = $('input[name=mem_pass]').val();
-			if(!mem_pass.validationPWD()){
-				alert('패스워드를 바르게 입력해주세요.');
-				return false;
-				}
-			if($('input[name=saveID]').is(':checked')){
-				Set_Cookie("mem_id", $('input[name=mem_id]').val(), 1, "/");	
-				
-			}else{
-				Delete_Cookie('mem_id', '/');
-			}
-			
-			
-			$('form').submit();
-			
-			
-			
-		});
+
+			$('.loginBtn').click(function(){
+	               var mem_id = $('input[name=mem_id]').val();
+	               var mem_pass = $('input[name=mem_pass]').val();
+	       
+	               var $frm = $('<form action="${pageContext.request.contextPath }/user/join/loginCheck.do" method="post"></form>');
+	               var $inputID = $('<input type="hidden" value="' +mem_id+ '" name="mem_id" />');
+	               var $inputPWD = $('<input type="hidden" value="' +mem_pass+ '" name="mem_pass" />');
+	               $frm.append($inputID);
+	               $frm.append($inputPWD);
+	               $(document.body).append($frm);
+	               $frm.submit();
+	            });
 		
 				
 	}
 </script>
 </head>
 <body>
-<form action="loginCheck.jsp" method="post">
+<form>
 	<table width="770" border="0" align="center" cellpadding="0"
 		cellspacing="0" style="margin: 90px;">
 		<tr>
