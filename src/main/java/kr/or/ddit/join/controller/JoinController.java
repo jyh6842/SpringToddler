@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 // /SpringToddler/user/join/loginForm.do
 // /SpringToddler/user/join/loginCheck.do
@@ -32,13 +33,19 @@ public class JoinController {
 	private IMemberService service;
 	
 	@RequestMapping("loginForm") //어차피 do 확장자로 들어오니까 loginForm.do 에서 do 지운다.
-	public void loginForm(){
+	public void loginForm(HttpServletRequest request){
 		// 반환값 : join/loginForm
 		// internalResourceViewResolver 취득함
 		//		prefix(/WEB-INF/views/user/)
 		//		suffix(.jsp)
 		//	/WEB-INF/view/user/join/loginForm.jsp 포워딩 처리함
 //		return "user/join/loginForm";
+		// RedirectAttribute를 황용해 전송되는 값 취득
+		Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request); // Map 타입으로 리턴함// 어떤 타입이 올지 모르니까 ? 주면 아무거나 받을 수 있음
+		if(paramMap != null){
+			String message = (String)paramMap.get("message");
+			System.out.println("RedirectAttribute 전달된 취득값 : " + message);
+		}
 	}
 	
 	//  /SpringToddler/user/join/loginCheck.do
@@ -69,7 +76,7 @@ public class JoinController {
 	}
 	
 	@RequestMapping("logout")
-	public String logout(HttpSession session) throws UnsupportedEncodingException{
+	public String logout(HttpSession session) throws Exception{
 		session.invalidate();
 		
 		String message = this.accessor.getMessage("success.common.logout", Locale.KOREA); // fail.common.join = 회원이 아닙니다.

@@ -1,5 +1,6 @@
 package kr.or.ddit.member.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.Map;
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.vo.MemberVO;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 // /SpringToddler/user/member/memberList.do
 // /SpringToddler/user/member/memberView.do
@@ -28,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MemberController {
 	@Autowired
 	private MessageSourceAccessor accessor;
+	@Autowired
+	private ObjectMapper mapper; // org.codehaus.jackson.map.ObjectMapper;
 	
 	@Autowired
 	private IMemberService service;
@@ -80,7 +90,7 @@ public class MemberController {
 	@RequestMapping("deleteMemberInfo")
 	public String deleteMember(@RequestParam(required=false, defaultValue="널 대체값" ) String mem_id // @RequestParam(value="user_id") String mem_id
 							   ,Map<String, String> params){
-		params.put("mem_id", mem_id);a
+		params.put("mem_id", mem_id);
 		this.service.deleteMemberInfo(params);
 		return "redirect:/user/member/memberList.do";
 	}
@@ -92,15 +102,41 @@ public class MemberController {
 	
 	@RequestMapping("insertMemberInfo")
 	public String insertMember(MemberVO memberInfo
-								,@RequestBody String totalParams) throws UnsupportedEncodingException{ // 도메인 오브젝트라고 부른다. membervo memberInfo
+								,@RequestBody String totalParams
+								,RedirectAttributes redirectAttributes
+			) throws Exception{ // 도메인 오브젝트라고 부른다. membervo memberInfo
 		
-		System.out.println("@RequestBody | " + totalParams);
-		this.service.insertMember(memberInfo);
+		System.out.println("@RequestBody" + totalParams);
+//		this.service.insertMember(memberInfo);
+//		
+//		String message = this.accessor.getMessage("cop.regist.msg.confirm", Locale.KOREA);
+//		message = URLEncoder.encode(message, "UTF-8");
+//		
+//		return "redirect:/user/join/loginForm.do?message="+message;
 		
-		String message = this.accessor.getMessage("cop.regist.msg.confirm", Locale.KOREA);
-		message = URLEncoder.encode(message, "UTF-8");
+		redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
+		return "redirect:/user/join/loginForm.do";
 		
-		return "redirect:/user/join/loginForm.do?message="+message;
+	}
+	
+	@RequestMapping("idCheck")
+	@ResponseBody
+	public String idCheck(@RequestParam String mem_id
+							,Map<String, String> params
+							,Map<String, String> jsonMap) throws JsonGenerationException, JsonMappingException, IOException{
+		params.put("mem_id", mem_id);
+		
+		MemberVO memberInfo = this.service.memberInfo(params);
+		
+		if(memberInfo == null){
+			jsonMap.put("flag", "true");
+		}else{
+			jsonMap.put("flag", "false");
+		}
+		
+		String jsonData = this.mapper.writeValueAsString(jsonMap);
+		
+		return jsonData; 
 	}
 	
 	
