@@ -7,15 +7,15 @@ import kr.or.ddit.vo.MemberVO;
 public interface IMemberService {
 
 	
-	public MemberVO memberInfo(Map<String, String> parms);
+	public MemberVO memberInfo(Map<String, String> parms) throws Exception;
 	
-	public List<MemberVO> memberList(Map<String, String> params);
+	public List<MemberVO> memberList(Map<String, String> params) throws Exception;
 	
-	public void deleteMemberInfo(Map<String, String> params);
+	public void deleteMemberInfo(Map<String, String> params) throws Exception;
 	
-	public void updateMemberInfo(MemberVO memberInfo);
+	public void updateMemberInfo(MemberVO memberInfo) throws Exception;
 	
-	public void insertMember(MemberVO memberInfo);
+	public void insertMember(MemberVO memberInfo) throws Exception;
 	
-	public String totalCount(Map<String, String> params);
+	public String totalCount(Map<String, String> params) throws Exception;
 }

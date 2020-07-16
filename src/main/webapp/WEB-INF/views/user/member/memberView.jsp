@@ -10,7 +10,7 @@
 <script type="text/javascript">
 $(function(){
 	$('input[value=탈퇴]').click(function(){
-		$(location).attr('href', '${pageContext.request.contextPath}/user/member/deleteMemberInfo.do?mem_id=${memberInfo.mem_id}');
+		$(location).attr('href', '${pageContext.request.contextPath}/user/member/deleteMemberInfo/${memberInfo.mem_id}.do');
 	});
 	$('input[value=회원목록]').click(function(){
 		$(location).attr('href', '${pageContext.request.contextPath}/user/member/memberList.do');
