@@ -2,7 +2,7 @@
 <Context>
    <watchededResource>WEB-INF/web.xml</watchededResource>
    <Resource name = "jdbc/ddit"
-            auth = "deok"
+            auth = "YH"
             type = "javax.sql.DataSource"
             driverClassName="oracle.jdbc.driver.OracleDriver"
             url="jdbc:oracle:thin:@localhost:1521:XE"

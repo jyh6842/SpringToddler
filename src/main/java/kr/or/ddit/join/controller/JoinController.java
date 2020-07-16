@@ -1,7 +1,9 @@
 package kr.or.ddit.join.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.vo.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller /*클라이언트 요청을 처리할 수  있는 클래스가 됨*/
 @RequestMapping("/user/join/") /*폼 채크 아웃이 공통으로 쓰는거는 이렇게 미리 선언할 수 있음*/
 public class JoinController {
+	@Autowired
+	private MessageSourceAccessor accessor; // 다국어 지원 모드를 위해서
+	
 	@Autowired
 	private IMemberService service;
 	
@@ -51,7 +57,8 @@ public class JoinController {
 		MemberVO memberInfo = this.service.memberInfo(params);
 		
 		if(memberInfo == null){
-			String message = URLEncoder.encode("회원이 아닙니다.", "UTF-8");
+			String message = this.accessor.getMessage("fail.common.join", Locale.KOREA); // fail.common.join = 회원이 아닙니다.
+			message = URLEncoder.encode(message, "UTF-8");
 			// 리다이렉트 (컨텍스트 루트 | 패스 생략) 컨텍스르 루트 내에서 실행 되는 거니까 생략을 하는거
 			return "redirect:/user/join/loginForm.do?message="+message;
 		}else {
@@ -62,8 +69,11 @@ public class JoinController {
 	}
 	
 	@RequestMapping("logout")
-	public String logout(HttpSession session){
+	public String logout(HttpSession session) throws UnsupportedEncodingException{
 		session.invalidate();
-		return "redirect:/user/join/loginForm.do";
+		
+		String message = this.accessor.getMessage("success.common.logout", Locale.KOREA); // fail.common.join = 회원이 아닙니다.
+		message = URLEncoder.encode(message, "UTF-8");
+		return "redirect:/user/join/loginForm.do?message="+message;
 	}
 }

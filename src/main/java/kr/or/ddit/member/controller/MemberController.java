@@ -1,12 +1,16 @@
 package kr.or.ddit.member.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.vo.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -21,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/user/member/") // 공통된 주소
 public class MemberController {
+	@Autowired
+	private MessageSourceAccessor accessor;
+	
 	@Autowired
 	private IMemberService service;
 	
@@ -75,6 +82,21 @@ public class MemberController {
 		params.put("mem_id", mem_id);
 		this.service.deleteMemberInfo(params);
 		return "redirect:/user/member/memberList.do";
+	}
+	
+	
+	@RequestMapping("memberForm")
+	public void memberForm(){}
+	
+	
+	@RequestMapping("insertMemberInfo")
+	public String insertMember(MemberVO memberInfo) throws UnsupportedEncodingException{ // 도메인 오브젝트라고 부른다. membervo memberInfo
+		this.service.insertMember(memberInfo);
+		
+		String message = this.accessor.getMessage("cop.regist.msg.confirm", Locale.KOREA);
+		message = URLEncoder.encode(message, "UTF-8");
+		
+		return "redirect:/user/join/loginForm.do?message="+message;
 	}
 	
 	
