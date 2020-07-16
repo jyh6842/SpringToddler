@@ -16,6 +16,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -79,7 +80,7 @@ public class MemberController {
 	@RequestMapping("deleteMemberInfo")
 	public String deleteMember(@RequestParam(required=false, defaultValue="널 대체값" ) String mem_id // @RequestParam(value="user_id") String mem_id
 							   ,Map<String, String> params){
-		params.put("mem_id", mem_id);
+		params.put("mem_id", mem_id);a
 		this.service.deleteMemberInfo(params);
 		return "redirect:/user/member/memberList.do";
 	}
@@ -90,7 +91,10 @@ public class MemberController {
 	
 	
 	@RequestMapping("insertMemberInfo")
-	public String insertMember(MemberVO memberInfo) throws UnsupportedEncodingException{ // 도메인 오브젝트라고 부른다. membervo memberInfo
+	public String insertMember(MemberVO memberInfo
+								,@RequestBody String totalParams) throws UnsupportedEncodingException{ // 도메인 오브젝트라고 부른다. membervo memberInfo
+		
+		System.out.println("@RequestBody | " + totalParams);
 		this.service.insertMember(memberInfo);
 		
 		String message = this.accessor.getMessage("cop.regist.msg.confirm", Locale.KOREA);
