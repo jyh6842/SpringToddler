@@ -19,11 +19,14 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CryptoGenerator {
 	// 암, 복호화 : 공개키 = 비밀키(생성시 동반 생성, 1회 활용하고 폐기
 	// 반환값: 공개키(가수부, 지수부로 구분해서 맵에 저장후 반환) 어디에서 가수부와 지수부를 구분해서 받기를 원한다구?
 	// 파라메터 : 비밀키 세션 저장
-	public static Map<String, String> genneratePairKey(HttpSession session){
+	public  Map<String, String> genneratePairKey(HttpSession session){
 		// 공개키 + 비밀키 생성
 		KeyPairGenerator keyGenerator = null;
 		
@@ -89,7 +92,7 @@ public class CryptoGenerator {
 	
 	// 암호문을 평문으로 복화
 //	public static String decryptRSA(PrivateKey privateKey, String secureValue){
-	   public static String decryptRSA(HttpSession session, String secureValue){
+	   public  String decryptRSA(HttpSession session, String secureValue){
 //		평문을 반환하도록 변수 선언
 		String returnValue = "";
 	      PrivateKey privateKey = (PrivateKey) session.getAttribute("privateKey");
@@ -123,7 +126,7 @@ public class CryptoGenerator {
 	}
 
 	// 암호문이 널이거나 짝수가 아니면 암호문이 잘못 암호화 된 것이다. 이상한 것 (암호화 에러)
-	private static byte[] hextoByteArray(String secureValue) {
+	private  byte[] hextoByteArray(String secureValue) {
 		
 		// 짝수가 들어오도록 해야함
 		if(secureValue == null || secureValue.length() % 2 != 0){

@@ -25,38 +25,43 @@ $(function(){
     // 에디터 제거
     // $('#bo_content').summernote('destroy');
     
-	BootstrapDialog.show({
-	    title: '알럿창',
-	    message: '알럿창으로 활용하세요!'
-	});
+// 	BootstrapDialog.show({
+// 	    title: '알럿창',
+// 	    message: '알럿창으로 활용하세요!'
+// 	});
 	
-	BootstrapDialog.show({
-        message: '컨펌 다이얼로그로 활용하세요!',
-        buttons: [{
-            label: 'Button 1'
-        }, {
-            label: 'Button 2',
-            cssClass: 'btn-primary',
-            action: function(){
-                alert('Hi Orange!');
-            }
-        }, {
-            icon: 'glyphicon glyphicon-ban-circle',
-            label: 'Button 3',
-            cssClass: 'btn-warning'
-        }, {
-            label: 'Close',
-            action: function(dialogItself){
-                dialogItself.close();
-            }
-        }]
-    });
+// 	BootstrapDialog.show({
+//         message: '컨펌 다이얼로그로 활용하세요!',
+//         buttons: [{
+//             label: 'Button 1'
+//         }, {
+//             label: 'Button 2',
+//             cssClass: 'btn-primary',
+//             action: function(){
+//                 alert('Hi Orange!');
+//             }
+//         }, {
+//             icon: 'glyphicon glyphicon-ban-circle',
+//             label: 'Button 3',
+//             cssClass: 'btn-warning'
+//         }, {
+//             label: 'Close',
+//             action: function(dialogItself){
+//                 dialogItself.close();
+//             }
+//         }]
+//     });
+	
+	$('form[name=freeboardForm]').submit(function(){
+		$(this).attr('action', '${pageContext.request.contextPath}/user/freeboard/insertFreeboard.do')
+	});
+
 
 });
 </script>
 </head>
 <body>
-<form class="form-horizontal" role="form" action="" method="post">
+<form class="form-horizontal" role="form" action="" method="post" name="freeboardForm">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_title">제목:</label>
 		<div class="col-sm-10">

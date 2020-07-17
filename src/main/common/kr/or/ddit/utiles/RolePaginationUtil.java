@@ -2,6 +2,10 @@ package kr.or.ddit.utiles;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
+@Component
 public class RolePaginationUtil {
 	private int currentPage;		// 현재 페이지
 	private int totalCount;			// 전체 게시글 갯수
@@ -15,7 +19,7 @@ public class RolePaginationUtil {
 	private HttpServletRequest request;
 	private StringBuffer pagingHtmls; // String 을 사용 하면 변화가 일어날때 마다 계속해서 새로운 객체를 만든다.
 	
-	public RolePaginationUtil(HttpServletRequest request, int currentPage, int totalCount)	{
+	public void RolePaginationUtil(HttpServletRequest request, int currentPage, int totalCount)	{
 		this.request = request;
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
