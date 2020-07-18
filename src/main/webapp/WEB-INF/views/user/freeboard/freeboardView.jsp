@@ -27,6 +27,20 @@ $(function(){
 			theme: 'monokai'
 		}
     });
+    
+    
+//     freeboardInfo
+    
+    $('#bo_title').val('${freeboardInfo.bo_title}');    
+    $('#bo_nickname').val('${freeboardInfo.bo_nickname}');    
+    $('#bo_pwd').val('${freeboardInfo.bo_pwd}');    
+    $('#bo_mail').val('${freeboardInfo.bo_mail}');    
+    $('#bo_content').summernote('code', '${freeboardInfo.bo_content}');    
+    
+    
+    
+    
+    
 });
 </script>
 </head>
@@ -53,13 +67,13 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_mail">메일:</label>
 		<div class="col-sm-10"> 
-			<input type="password" class="form-control" id="bo_mail" name="bo_mail" >
+			<input type="mail" class="form-control" id="bo_mail" name="bo_mail" >
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_content">내용:</label>
 		<div class="col-sm-10"> 
-			<div id="bo_content"><p></p></div>
+			<div id="bo_content"></div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -98,7 +112,7 @@ $(function(){
 	</div>
 	<div class="form-group"> 
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="button" class="btn btn-success">글쓰기</button>
+<!-- 			<button type="button" class="btn btn-success">글쓰기</button> -->
 			<button type="button" class="btn btn-danger">삭제</button>
 			<button type="button" class="btn btn-primary">답글</button>
 			<button type="button" class="btn btn-info">목록</button>

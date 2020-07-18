@@ -53,7 +53,12 @@ $(function(){
 //     });
 	
 	$('form[name=freeboardForm]').submit(function(){
-		$(this).attr('action', '${pageContext.request.contextPath}/user/freeboard/insertFreeboard.do')
+		
+		$(this).append('<input type="hidden" name="bo_writer" value="${LOGIN_MEMBERINFO.mem_id}" />');
+		const bo_content = $('#bo_content').summernote('code'); // 현재 웹 에디터에 내가 친 것들을 가져오기 위해서 사용 (코드로 가져온다.)
+		$(this).append('<input type="hidden" name="bo_content" value="'+bo_content+'" />');
+		
+		$(this).attr('action', '${pageContext.request.contextPath}/user/freeboard/insertFreeboard.do');
 	});
 
 
@@ -89,7 +94,7 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_content">내용:</label>
 		<div class="col-sm-10"> 
-			<div id="bo_content"><p>내용을 입력해주세요...</p></div>
+			<div id="bo_content"></div>
 		</div>
 	</div>
 	<div class="form-group">

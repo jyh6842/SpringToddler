@@ -36,7 +36,7 @@ public class IFreeBoardServiceImpl implements IFreeBoardService {
 		String bo_no = dao.insertFreeboard(freeboardInfo);
 		List<FileItemVO> fileItemList = AttachFileMapper.mapper(items, bo_no);
 
-		fileitemDao.insertFileItem(fileItemList);
+//		fileitemDao.insertFileItem(fileItemList);
 
 		return bo_no;
 	}

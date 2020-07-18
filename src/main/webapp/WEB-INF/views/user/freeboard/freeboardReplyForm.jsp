@@ -61,7 +61,7 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_content">내용:</label>
 		<div class="col-sm-10"> 
-			<div id="bo_content"><p></p></div>
+			<div id="bo_content"></div>
 		</div>
 	</div>
 	<div class="form-group"> 

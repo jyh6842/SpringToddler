@@ -8,6 +8,14 @@
 <title>자유게시글 목록</title>
 <script type="text/javascript">
 $(function(){
+	
+	$('#TBY tr:eq(0)').on('click', function(){
+		const bo_no = $(this).find('td:eq(0) input').val();
+		
+		location.href= "${pageContext.request.contextPath}/user/freeboard/freeboardView.do?bo_no="+bo_no;
+	});
+	
+	
 	$('#btn_freedForm').on('click', function(){
 		$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardForm.do');
 	});
@@ -29,10 +37,10 @@ $(function(){
 					<th scope="col" width="10%">조회수</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id=TBY>
 				<c:forEach items="${freeboardList }" var="freeboardList">
 				<tr>
-					<td>${freeboardList.rnum }</td>
+					<td>${freeboardList.rnum }<input type="hidden" name="bo_no" value="${freeboardList.bo_no }"> </td>
 					<td>${freeboardList.bo_title }</td>
 					<td>${freeboardList.bo_writer }</td>
 					<td>${freeboardList.bo_reg_date }</td>

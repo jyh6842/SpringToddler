@@ -1,5 +1,7 @@
 package kr.or.ddit.freeboard.contriller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import kr.or.ddit.utiles.CryptoGenerator;
 import kr.or.ddit.utiles.RolePaginationUtil;
 import kr.or.ddit.vo.FreeboardVO;
 
+import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,8 +80,36 @@ public class FreeboardController {
 	public void freeboardForm(){}
 	
 	
-//	@RequestMapping("insertFreeboard")
-//	public ModelAndView(FreeboardVO freeboardInfoVo){
-//		this.service.insertFreeboard(freeboardInfo, items)
-//	}
+	@RequestMapping("insertFreeboard")
+	public String insertFreeboard(FreeboardVO freeboardInfoVo
+										,ModelAndView andView 
+										,String chk ) throws Exception{
+		FileItem[] items = null;
+		chk = this.service.insertFreeboard(freeboardInfoVo, items);
+		
+		String message = null;
+		
+		if(chk.intern() == "0"){
+			message = URLEncoder.encode("등록 실패", "UTF-8");
+		}else {
+			message = URLEncoder.encode("등록 성공", "UTF-8");
+		}
+		
+		return "redirect:/user/freeboard/freeboardList.do?message="+message;
+	}
+	
+	@RequestMapping("freeboardView")
+	public ModelAndView freeboardView(String bo_no
+								,FreeboardVO freeboardInfo
+								,Map<String, String> params
+								,ModelAndView andView
+								) throws Exception{
+		params.put("bo_no", bo_no);
+		freeboardInfo = this.service.freeboardInfo(params);
+		
+		andView.addObject("freeboardInfo", freeboardInfo);
+		andView.setViewName("user/freeboard/freeboardView");
+		
+		return andView;
+	}
 }
